@@ -1,0 +1,109 @@
+/* Motion layer. Only active when html has .motion (no reduced-motion preference). */
+.progress{position:fixed;top:0;left:0;right:0;height:3px;z-index:60;background:var(--accent);transform:scaleX(var(--p,0));transform-origin:0 50%;pointer-events:none}
+.intro{display:none}
+
+/* Intro */
+.motion .intro{position:fixed;inset:0;z-index:100;background:var(--ink);color:var(--gold);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;animation:introOut 1s cubic-bezier(.76,0,.24,1) 1.9s forwards}
+.motion.intro-done .intro{display:none}
+.intro svg{fill:none;stroke:var(--gold);stroke-width:1.4;stroke-linecap:round;overflow:visible}
+.intro circle{stroke-dasharray:120;stroke-dashoffset:120;animation:draw 1.1s cubic-bezier(.6,0,.2,1) .15s forwards}
+.intro path{stroke-width:1.8;stroke-dasharray:60;stroke-dashoffset:60;animation:draw .8s ease-out .8s forwards}
+.intro span{font-family:var(--serif);font-size:26px;letter-spacing:.02em;opacity:0;transform:translateY(12px);animation:fadeUp .8s ease-out 1s forwards}
+.intro em{color:var(--accent)}
+@keyframes introOut{to{transform:translateY(-100%)}}
+@keyframes fadeUp{to{opacity:1;transform:none}}
+.motion body{overflow-x:hidden}
+.motion:not(.intro-done) body{overflow:hidden}
+
+/* Hero entrance, gated on .hero-go */
+.motion:not(.hero-go) .hero *{animation-play-state:paused!important}
+.motion .hero .reveal{animation:none;opacity:0;transform:translateY(26px);transition:opacity 1s ease,transform 1s cubic-bezier(.2,.8,.2,1)}
+.motion .hero .eyebrow{transition-delay:.05s}
+.motion .hero .lead{transition-delay:.55s}
+.motion .hero .actions{transition-delay:.7s}
+.motion .hero .demo-note{transition-delay:.85s}
+.motion.hero-go .hero .reveal{opacity:1;transform:none}
+.motion .line>span{animation:none;transform:translateY(112%) skewY(5deg);filter:blur(6px);transition:transform 1.1s cubic-bezier(.16,1,.3,1),filter 1.1s ease}
+.motion .line:nth-child(2)>span{transition-delay:.14s}
+.motion.hero-go .line>span{transform:none;filter:none}
+.sw{position:relative;display:inline-block}
+.sw svg{position:absolute;left:0;right:0;bottom:-.08em;width:100%;height:.16em;overflow:visible;fill:none;stroke:var(--accent);stroke-width:3;stroke-linecap:round}
+.sw path{stroke-dasharray:320;stroke-dashoffset:0}
+.motion .sw path{stroke-dashoffset:320;transition:stroke-dashoffset 1.2s cubic-bezier(.6,0,.2,1) 1.1s}
+.motion.hero-go .sw path{stroke-dashoffset:0}
+
+/* Hero art */
+.art .l1{translate:calc(var(--mx,0)*14px) calc(var(--my,0)*14px + var(--sy,0)*-.05px);transition:translate .6s cubic-bezier(.2,.8,.2,1)}
+.art .l2{translate:calc(var(--mx,0)*-18px) calc(var(--my,0)*-18px + var(--sy,0)*-.02px);transition:translate .6s cubic-bezier(.2,.8,.2,1)}
+.art .blade-p,.art .stem-p{stroke:var(--ink);stroke-width:5}
+.art .stem-p{stroke-width:5}
+.art .half{transform-origin:200px 250px}
+.art .h1{animation:snip1 3.4s cubic-bezier(.6,0,.3,1) 2.4s infinite}
+.art .h2{animation:snip2 3.4s cubic-bezier(.6,0,.3,1) 2.4s infinite}
+.art .pivot{fill:var(--ink);stroke:none}
+@keyframes snip1{0%,52%,100%{transform:rotate(-7deg)}14%{transform:rotate(5deg)}22%{transform:rotate(-7deg)}30%{transform:rotate(5deg)}38%{transform:rotate(-7deg)}}
+@keyframes snip2{0%,52%,100%{transform:rotate(7deg)}14%{transform:rotate(-5deg)}22%{transform:rotate(7deg)}30%{transform:rotate(-5deg)}38%{transform:rotate(7deg)}}
+.art .orbit{fill:var(--accent);stroke:none;transform-origin:200px 240px;animation:orbit 14s linear infinite}
+@keyframes orbit{to{transform:rotate(360deg)}}
+.art .fall{stroke:var(--gold);stroke-width:2.2;opacity:0}
+.art .f1{animation:fall 3.4s ease-in 2.5s infinite}
+.art .f2{animation:fall 3.4s ease-in 2.62s infinite}
+.art .f3{animation:fall 3.4s ease-in 2.75s infinite}
+.art .f4{animation:fall 3.4s ease-in 2.87s infinite}
+@keyframes fall{0%,12%{opacity:0;transform:translate(0,0) rotate(0)}16%{opacity:1}55%{opacity:.9}70%,100%{opacity:0;transform:translate(var(--dx,24px),180px) rotate(var(--rot,40deg))}}
+.art .f2{--dx:-30px;--rot:-50deg}.art .f3{--dx:12px;--rot:25deg}.art .f4{--dx:-10px;--rot:-30deg}
+.art .strands path{animation:draw 2.4s ease-out 1.2s forwards,drift 7s ease-in-out 3.6s infinite alternate}
+@keyframes drift{to{transform:translateX(10px)}}
+
+/* Nav */
+.nav{transition:transform .5s cubic-bezier(.2,.8,.2,1),background .3s}
+.nav.hide{transform:translateY(-110%)}
+.nav nav a{position:relative}
+.nav nav a::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:1px;background:var(--accent);transform:scaleX(0);transform-origin:right;transition:transform .45s cubic-bezier(.2,.8,.2,1)}
+.nav nav a:hover::after,.nav nav a.on::after{transform:scaleX(1);transform-origin:left}
+.nav nav a.on{color:var(--ink)}
+
+/* Buttons */
+.btn{position:relative;overflow:hidden;isolation:isolate;transition:translate .35s cubic-bezier(.2,.8,.2,1),background .3s,color .3s,border-color .3s}
+.btn:hover{transform:none}
+.motion .btn::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--accent);transform:translateY(101%);transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.motion .btn:hover::before{transform:none}
+.motion .btn.pending::before{display:none}
+.motion .btn-ghost:hover,.motion .btn-ghost-dark:hover{color:#fff;background:transparent;border-color:var(--accent)}
+.motion .btn-light::before{background:var(--gold)}
+.cta .btn{animation:ring 3.2s ease-out infinite}
+@keyframes ring{0%{box-shadow:0 0 0 0 rgba(246,241,233,.55)}70%,100%{box-shadow:0 0 0 18px rgba(246,241,233,0)}}
+.motion .wa-float{transform:scale(0);transition:transform .7s cubic-bezier(.34,1.56,.64,1) 2.4s,background .3s}
+.motion.hero-go .wa-float{transform:scale(1)}
+.motion.hero-go .wa-float:hover{transform:scale(1.08)}
+
+/* Ticker driven by script */
+.motion .ticker-track{animation:none;will-change:transform}
+
+/* Scroll choreography */
+.motion .reveal{transform:translateY(34px);transition:opacity .9s ease var(--d,0s),transform 1.1s cubic-bezier(.16,1,.3,1) var(--d,0s)}
+.motion .reveal.in{transform:none}
+.motion .split-h2 .w{display:inline-block;overflow:hidden;vertical-align:top;padding:0 .02em .12em}
+.motion .split-h2 .w>span{display:inline-block;transform:translateY(112%) rotate(5deg);transform-origin:0 100%;transition:transform 1s cubic-bezier(.16,1,.3,1) calc(var(--i)*70ms)}
+.motion .split-h2.in .w>span{transform:none}
+.motion .svc li{border-top-color:transparent;position:relative;transition:padding .45s cubic-bezier(.2,.8,.2,1)}
+.motion .svc li::before{content:"";position:absolute;left:0;right:0;top:0;height:1px;background:rgba(246,241,233,.2);transform:scaleX(0);transform-origin:left;transition:transform 1.2s cubic-bezier(.6,0,.2,1) var(--d,0s)}
+.motion .svc li.in::before{transform:scaleX(1)}
+.motion .svc li::after{content:"\2192";position:absolute;right:0;top:50%;color:var(--gold);font-size:28px;opacity:0;transform:translate(-14px,-50%);transition:opacity .35s,transform .45s cubic-bezier(.2,.8,.2,1)}
+.motion .svc li:hover::after{opacity:1;transform:translate(0,-50%)}
+.motion .svc .n,.motion .svc h3{transition:transform .5s cubic-bezier(.2,.8,.2,1),color .3s}
+.motion .svc li .n{display:inline-block;transform:translateX(-12px);opacity:0;transition:transform .9s cubic-bezier(.16,1,.3,1) calc(var(--d,0s) + .2s),opacity .9s ease calc(var(--d,0s) + .2s)}
+.motion .svc li.in .n{transform:none;opacity:1}
+.motion .svc li:hover h3{transform:translateX(10px)}
+.motion .quotes figure{transform:translateY(46px) rotate(-1.4deg);transition:opacity .9s ease var(--d,0s),transform 1.2s cubic-bezier(.16,1,.3,1) var(--d,0s),box-shadow .4s}
+.motion .quotes figure.in{transform:none}
+.motion .quotes figure.in:hover{box-shadow:0 18px 40px rgba(20,17,15,.14)}
+.quotes figure{transform-style:preserve-3d}
+.stats dt{display:block}
+.motion address,.motion .hours-h{will-change:transform}
+.motion footer{overflow:hidden}
+
+@media (prefers-reduced-motion:reduce){
+  .intro,.progress{display:none}
+  .art .fall{display:none}
+}

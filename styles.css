@@ -107,3 +107,11 @@ footer{background:var(--ink);color:#9c9388;font-size:13px;padding:32px clamp(18p
   .reveal,.line>span{opacity:1;transform:none}
   .ring,.handle,.stem,.strands path{stroke-dashoffset:0}.blade{opacity:1}
 }
+
+.btn.pending{border-style:dashed}
+.btn.pending:hover{transform:none;background:var(--ink);border-color:var(--ink)}
+.btn-light.pending:hover{background:var(--paper);border-color:var(--paper);color:var(--ink)}
+.wa-float.pending{background:#6b625a}
+.demo-note{font-size:13px;color:var(--muted);margin-top:18px;max-width:420px}
+.hours-h{font-size:24px;margin-bottom:12px}
+.stats{grid-template-columns:repeat(2,1fr)!important;max-width:420px}
